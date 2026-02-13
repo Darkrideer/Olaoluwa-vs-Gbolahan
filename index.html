@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>One Question</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #0b1220;
+      color: #e8eefc;
+    }
+    .card {
+      width: min(520px, 92vw);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      text-align: center;
+    }
+    h1 { font-size: 24px; margin: 0 0 8px; }
+    p { margin: 0 0 18px; opacity: 0.9; }
+    .btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .yes { background: #36d399; color: #062014; font-weight: 700; }
+    .no  { background: rgba(255,255,255,0.16); color: #e8eefc; }
+    .msg { margin-top: 18px; font-size: 16px; }
+    .small { margin-top: 10px; font-size: 13px; opacity: 0.75; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hey ❤️</h1>
+    <p>I have one question for you.</p>
+    <h2 style="margin: 0 0 14px; font-size: 20px;">Will you be my girlfriend?</h2>
+
+    <div class="btns">
+      <button class="yes" id="yesBtn">Yes</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <div class="small" id="small"></div>
+  </div>
+
+  <script>
+    const msg = document.getElementById("msg");
+    const small = document.getElementById("small");
+
+    document.getElementById("yesBtn").addEventListener("click", () => {
+      msg.textContent = "Yay 😭❤️ Okay, it is official.";
+      small.textContent = "Now screenshot this and send it to me 😄";
+    });
+
+    document.getElementById("noBtn").addEventListener("click", () => {
+      // Still a real choice. Just adds a gentle confirmation.
+      const ok = confirm("No worries at all. Just checking: is that a no?");
+      if (ok) {
+        msg.textContent = "Okay ❤️ Thank you for being honest. I still appreciate you a lot.";
+        small.textContent = "";
+      } else {
+        msg.textContent = "Alright 😄 Take your time.";
+        small.textContent = "";
+      }
+    });
+  </script>
+</body>
+</html>
