@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>One Question</title>
+  <style>
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display:grid; place-items:center;
+      min-height:100vh; margin:0;
+      background:#0b1220; color:#e8eefc;
+    }
+    .card{
+      width:min(560px, 92vw);
+      background:rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 12px 40px rgba(0,0,0,0.35);
+      text-align:center;
+    }
+    h1{ font-size:24px; margin:0 0 10px; }
+    h2{ font-size:20px; margin:0 0 14px; }
+    p{ margin:0 0 14px; opacity:0.92; line-height:1.5; }
+    .btns{
+      display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+      margin-top:12px;
+    }
+    button{
+      border:0; border-radius:999px;
+      padding:12px 18px;
+      font-size:16px; cursor:pointer;
+      transition:transform 0.08s ease, opacity 0.12s ease;
+      user-select:none;
+    }
+    button:active{ transform:scale(0.98); }
+    .yes{ background:#36d399; color:#062014; font-weight:800; }
+    .no{ background:rgba(255,255,255,0.16); color:#e8eefc; }
+    .opt{ background:rgba(255,255,255,0.14); color:#e8eefc; font-weight:700; min-width:70px; }
+    .muted{ opacity:0.78; font-size:13px; margin-top:10px; }
+    .divider{
+      height:1px; background:rgba(255,255,255,0.12);
+      margin:18px 0;
+    }
+    .hidden{ display:none; }
+    .msg{
+      margin-top:14px;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:14px;
+      padding:16px;
+    }
+    .center{ text-align:center; }
+    .tinylink{
+      display:inline-block;
+      margin-top:10px;
+      font-size:13px;
+      opacity:0.78;
+      text-decoration:underline;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Screen 1 -->
+    <section id="screen1">
+      <h1>Hi Olaoluwa ❤️</h1>
+      <p class="center">I have one question for you.</p>
+      <h2>Will you be my girlfriend?</h2>
+      <div class="btns">
+        <button class="yes" id="yes1">Yes</button>
+        <button class="no" id="no1">No</button>
+      </div>
+      <div class="muted">No pressure. I just wanted to ask in a way you will remember.</div>
+    </section>
+
+    <!-- Screen 2 -->
+    <section id="screen2" class="hidden">
+      <h1>Okay ❤️</h1>
+      <p class="center">One more question, just for fun.</p>
+      <h2>How many Valentine years have we celebrated together?</h2>
+      <div class="btns">
+        <button class="opt" data-val="6">6</button>
+        <button class="opt" data-val="7">7</button>
+        <button class="opt" data-val="8">8</button>
+      </div>
+      <div class="muted" id="hint2">Pick the right one 😉</div>
+
+      <div id="wrongBox" class="msg hidden">
+        <div class="center" style="font-weight:800; margin-bottom:6px;">Not quite 😄</div>
+        <div id="wrongText"></div>
+      </div>
+    </section>
+
+    <!-- Screen 3 -->
+    <section id="screen3" class="hidden">
+      <h1>Olaoluwa, my love ❤️</h1>
+      <div class="divider"></div>
+
+      <div class="msg" id="loveLetter">
+        <p>
+          You are my life, and I do not say that lightly. Eight years with you has shaped who I am, and even with all the miles between us, you still feel close to me. Some days in the US get loud and busy, but you are the quiet place my heart keeps returning to.
+        </p>
+        <p>
+          Being away from you for about two years has not changed what I know. I choose you. I choose us. Distance can stretch time, but it cannot rewrite what we have built. I still see you in my future clearly, like it is already written. I want you to feel safe in my love, not just today, but in the everyday moments too.
+        </p>
+        <p>
+          I miss you in the simplest ways. I miss your voice, your presence, the comfort of knowing you are right there. But I also love how strong we have been. I love that we keep showing up for each other, even when it is not easy. That kind of love is rare, and I will protect it.
+        </p>
+        <p>
+          So here is my Valentine message, from my chest, not from a template. I am committed to you, fully. No matter the country, no matter the season, no matter the distance. You are my person, and I cannot wait for the day I get to hold you again and remind you that you never walked alone in this.
+        </p>
+        <p class="center" style="font-weight:800; margin:0;">
+          Happy Valentine’s Day, Olaoluwa. I love you.
+        </p>
+        <p class="center" style="opacity:0.85; margin:8px 0 0;">
+          From your man, always.
+        </p>
+      </div>
+    </section>
+
+    <!-- Screen No -->
+    <section id="screenNo" class="hidden">
+      <h1>It is okay ❤️</h1>
+      <p class="center">Thank you for being honest with me.</p>
+      <div class="msg">
+        I respect your choice, truly. No pressure, no arguments. I just wanted you to know how I feel.
+      </div>
+      <div class="tinylink" id="restart">Restart</div>
+    </section>
+  </div>
+
+  <script>
+    const screen1 = document.getElementById("screen1");
+    const screen2 = document.getElementById("screen2");
+    const screen3 = document.getElementById("screen3");
+    const screenNo = document.getElementById("screenNo");
+
+    const yes1 = document.getElementById("yes1");
+    const no1 = document.getElementById("no1");
+
+    const wrongBox = document.getElementById("wrongBox");
+    const wrongText = document.getElementById("wrongText");
+    const hint2 = document.getElementById("hint2");
+
+    const restart = document.getElementById("restart");
+
+    function show(section){
+      [screen1, screen2, screen3, screenNo].forEach(s => s.classList.add("hidden"));
+      section.classList.remove("hidden");
+      wrongBox.classList.add("hidden");
+      hint2.textContent = "Pick the right one 😉";
+    }
+
+    yes1.addEventListener("click", () => show(screen2));
+    no1.addEventListener("click", () => show(screenNo));
+
+    document.querySelectorAll(".opt").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const v = btn.getAttribute("data-val");
+
+        if (v === "7") {
+          show(screen3);
+          return;
+        }
+
+        wrongBox.classList.remove("hidden");
+
+        if (v === "6") {
+          wrongText.textContent = "Close, but not that one. Think about how long we have really been doing life together.";
+        } else {
+          wrongText.textContent = "Eight years together, yes. But this question is about Valentine years celebrated together. Try again 😄";
+        }
+      });
+    });
+
+    restart.addEventListener("click", () => show(screen1));
+  </script>
+</body>
+</html>
